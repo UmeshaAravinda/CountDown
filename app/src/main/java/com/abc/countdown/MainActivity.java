@@ -8,6 +8,8 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
     private int counter = 99;
     private static final String CURRENT_COUNTER ="counter";
+    private boolean wasRunnig;
+    private  boolean running = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -15,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
         if(savedInstanceState!=null){
             counter = savedInstanceState.getInt(CURRENT_COUNTER);
         }
+        running = true;
         CountDown();
     }
     @Override
@@ -44,4 +47,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    @Override
+    public void onStop() {
+        super.onStop();
+        wasRunnig = true;
+    }
+
 }
