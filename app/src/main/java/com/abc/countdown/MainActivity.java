@@ -3,6 +3,7 @@ package com.abc.countdown;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -17,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
         if(savedInstanceState!=null){
             counter = savedInstanceState.getInt(CURRENT_COUNTER);
         }
-        running = true;
         CountDown();
     }
     @Override
@@ -40,17 +40,39 @@ public class MainActivity extends AppCompatActivity {
                 if(counter==0){
                     counter = 99;
                 }
-
-                counter--;
+                if (running) {
+                    counter--;
+                }
                 handler.postDelayed(this,1000);
 
             }
         });
     }
+
+    protected void startCounter(View view){
+        running = true;
+    }
+
+    protected void stopCounter(View view){
+        running = false;
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+    }
+
+
+
+    @Override
+    public void onRestart(){
+        super.onRestart();
+        running = true;
+    }
     @Override
     public void onStop() {
         super.onStop();
-        wasRunnig = true;
+        running = false;
     }
 
 }
